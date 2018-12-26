@@ -1,0 +1,46 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <#input  type="hidden" id="id" value="${item.id}"/>
+                <div class="col-sm-6 b-r">
+                            <#input id="productTitle" name="产品名称" value="${item.productTitle}" underline="true"/>
+                            <#input id="productIcon" name="产品图标" value="${item.productIcon}" underline="true"/>
+                            <#input id="productSlogen" name="产品广告语" value="${item.productSlogen}" underline="true"/>
+                            <#dictSelector  id="productCategory" name ="productCategory" code="product_type"  label="产品种类" underline="true" placeholder="-请选择-" value="${item.productCategory}" />
+                            <!--<#input id="productCategory" name="产品种类 @mock=1 1.贷超平台 2.信用卡" value="${item.productCategory}" underline="true"/>-->
+                            <#input id="productRate" name="产品利率" value="${item.productRate}" underline="true"/>
+                            <#input id="productMaximum" name="最高额度" value="${item.productMaximum}" underline="true"/>
+                            <#input id="productMinimum" name="最低可贷" value="${item.productMinimum}" underline="true"/>
+                            <#input id="productUrl" name="产品网址" value="${item.productUrl}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#dictSelector  id="hotFlag" name ="hotFlag" code="hot_flag"  label="热门falg" underline="true" placeholder="-请选择-"  value="${item.hotFlag}"/>
+                            <#input id="applyCount" name="申请人数" value="${item.applyCount}" underline="true"/>
+                            <#dictSelector  id="checkoutMode" name ="checkoutMode" code="balance_mode"  label="结算模式" underline="true" placeholder="-请选择-"  value="${item.checkoutMode}"/>
+                            <#dictSelector  id="bonusMode" name ="bonusMode" code="re_model"  label="返佣模式" underline="true" placeholder="-请选择-"  value="${item.bonusMode}"/>
+                            <#dictSelector  id="bonusType" name ="bonusType" code="count_model"  label="计佣形式" underline="true" placeholder="-请选择-" value="${item.bonusType}" />
+                            <!--<#input id="checkoutMode" name="结算模式 @mock=1 1：日结 2：周结 3：月结 4：预留" value="${item.checkoutMode}" underline="true"/>-->
+                            <!--<#input id="bonusMode" name="返佣模式 @mock=1 1：注册返 2：下款返 3：信用卡首刷返" value="${item.bonusMode}" underline="true"/>-->
+                            <!--<#input id="bonusType" name="计佣形式 @mock=1 1：固定数额 2：百分比 3：预留" value="${item.bonusType}" underline="true"/>-->
+                            <#input id="bonusValue" name="返佣金额" value="${item.bonusValue}" underline="true"/>
+                            <#input id="bonusRate" name="返佣比例" value="${item.bonusRate}" underline="true"/>
+                            <#input id="agenShareUrl" name="分享页面网址" value="${item.agenShareUrl}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ProductsInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ProductsInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/products/products/products_info.js"></script>
+@}

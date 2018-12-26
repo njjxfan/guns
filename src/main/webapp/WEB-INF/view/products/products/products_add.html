@@ -1,0 +1,103 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="productTitle" name="产品名称" underline="true"/>
+                            <input type="hidden" id="productIcon" name="产品图标" underline="true">
+                            <div  class="form-group" >
+                                <label class="col-sm-3 control-label" >产品图标：</label>
+                                <div class="col-sm-9">
+                                    <img id="preview" style="display:none"/>
+                                    <input type="hidden" id="imgfield" class="txt" placeholder="预览">
+                                    <input type="file" name="file" id ="file" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" onchange="imgPreview(this)" >
+                                </div>
+                            </div>
+                            <#input id="productSlogen" name="产品广告语" underline="true"/>
+                            <#dictSelector  id="productCategory" name ="productCategory" code="product_type"  label="产品种类" underline="true" placeholder="-请选择-"  />
+                            <!--<#input id="productCategory" name="产品种类 @mock=1 1.贷超平台 2.信用卡" underline="true"/>-->
+                            <#input id="productRate" name="产品利率" underline="true"/>
+                            <#input id="productMaximum" name="最高额度" underline="true"/>
+                            <#input id="productMinimum" name="最低可贷" underline="true"/>
+                            <#input id="productUrl" name="产品网址"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#dictSelector  id="hotFlag" name ="hotFlag" code="hot_flag"  label="热门falg" underline="true" placeholder="-请选择-"  />
+                            <!--<#input id="hotFlag" name="热门falg" underline="true"/>-->
+                            <#input id="applyCount" name="申请人数" underline="true"/>
+                            <#dictSelector  id="checkoutMode" name ="checkoutMode" code="balance_mode"  label="结算模式" underline="true" placeholder="-请选择-"  />
+                            <!--<#input id="checkoutMode" name="结算模式 @mock=1 1：日结 2：周结 3：月结 4：预留" underline="true"/>-->
+                            <#dictSelector  id="bonusMode" name ="bonusMode" code="re_model"  label="返佣模式" underline="true" placeholder="-请选择-"  />
+                            <!--<#input id="bonusMode" name="返佣模式 @mock=1 1：注册返 2：下款返 3：信用卡首刷返" underline="true"/>-->
+                            <#dictSelector  id="bonusType" name ="bonusType" code="count_model"  label="计佣形式" underline="true" placeholder="-请选择-"  />
+                            <!--<#input id="bonusType" name="计佣形式 @mock=1 1：固定数额 2：百分比 3：预留" underline="true"/>-->
+                            <#input id="bonusValue" name="返佣金额" underline="true"/>
+                            <#input id="bonusRate" name="返佣比例" underline="true"/>
+                            <#input id="agenShareUrl" name="分享页面网址" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ProductsInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ProductsInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/products/products/products_info.js"></script>
+<script>
+    function imgPreview(fileDom) {
+        //判断是否支持FileReader
+        if(window.FileReader) {
+            var reader = new FileReader();
+        } else {
+            alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+        }
+        //获取文件
+        var file = fileDom.files[0];
+        var imageType = /^image\//;
+        //是否是图片
+        if(!imageType.test(file.type)) {
+            alert("请选择图片！");
+            return;
+        }
+        //读取完成
+        reader.onload = function(e) {
+            //获取图片dom
+            var img = document.getElementById("preview");
+            //图片路径设置为读取的图片
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        //上传图片
+        $.ajaxFileUpload
+        ({
+            url: Feng.ctxPath + "/products/upload", //用于文件上传的服务器端请求地址
+            type:'post',
+            secureuri: false, //是否需要安全协议，一般设置为false
+            fileElementId: "file", //对应input的ID
+            data:{
+            },
+            dataType: 'json', //返回值类型一般设置为json
+            success: function (data)  //服务器成功响应处理函数
+            {
+                if(data.result.code==200){
+                    filePath = data.result.filePath;
+                    // productsInfoData.set("filePath",filePath);
+                    $("#productIcon").val(filePath);
+                }else{
+                    Feng.error("上传失败");
+                }
+            }
+
+        });
+
+    }
+</script>
+@}

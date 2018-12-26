@@ -1,0 +1,106 @@
+server:
+  port: 8080
+
+guns:
+  swagger-open: true              #是否开启swagger (true/false)
+  kaptcha-open: false             #是否开启登录时验证码 (true/false)
+  #  file-upload-path: d:/tmp     #文件上传目录(不配置的话为java.io.tmpdir目录)
+  spring-session-open: false      #是否开启spring session,如果是多机环境需要开启(true/false)
+  session-invalidate-time: 1800     #session失效时间(只在单机环境下生效，多机环境在SpringSessionConfig类中配置) 单位：秒
+  session-validation-interval: 900  #多久检测一次失效的session(只在单机环境下生效) 单位：秒
+
+beetl:
+  resource-auto-check: true       #热加载beetl模板，开发时候用
+
+spring:
+  profiles:
+    active: @spring.active@
+  mvc:
+    static-path-pattern: /static/**
+    view:
+      prefix: /WEB-INF/view
+  devtools:
+    restart:
+      enabled: false
+      additional-paths: src/main/java
+      exclude: static/**,WEB-INF/view/**
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 100MB
+      max-file-size: 100MB
+
+mybatis-plus:
+  typeAliasesPackage: cn.stylefeng.guns.modular.system.model
+
+log:
+  path: guns-logs
+
+---
+
+spring:
+  profiles: local
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/dai?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+    filters: wall,mergeStat
+    db-name: dai
+
+#多数据源情况的配置
+guns:
+  muti-datasource:
+    open: false
+    url: jdbc:mysql://127.0.0.1:3306/dai?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    dataSourceNames:
+    - dataSourceGuns
+    - dataSourceBiz
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/dai?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    filters: wall,mergeStat
+
+---
+
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/dai?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    filters: wall,mergeStat
+
+---
+
+spring:
+  profiles: produce
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/dai?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    filters: wall,mergeStat
+
+###################  mybatis-plus配置  ###################
+mybatis-plus:
+  mapper-locations: classpath*:com/stylefeng/guns/**/mapping/*.xml
+  typeAliasesPackage: com.stylefeng.guns.modular.system.model
+  global-config:
+    id-type: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
+    db-column-underline: false
+    capital-mode: false
+    refresh-mapper: true
+    logic-delete-value: 0
+    logic-not-delete-value: 1
+    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句,调试用
+
+

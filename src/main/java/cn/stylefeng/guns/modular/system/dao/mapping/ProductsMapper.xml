@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.dao.ProductsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.Products">
+        <id column="id" property="id" />
+        <result column="productTitle" property="productTitle" />
+        <result column="productIcon" property="productIcon" />
+        <result column="productSlogen" property="productSlogen" />
+        <result column="productCategory" property="productCategory" />
+        <result column="productRate" property="productRate" />
+        <result column="productMaximum" property="productMaximum" />
+        <result column="productMinimum" property="productMinimum" />
+        <result column="productUrl" property="productUrl" />
+        <result column="hotFlag" property="hotFlag" />
+        <result column="applyCount" property="applyCount" />
+        <result column="checkoutMode" property="checkoutMode" />
+        <result column="bonusMode" property="bonusMode" />
+        <result column="bonusType" property="bonusType" />
+        <result column="bonusValue" property="bonusValue" />
+        <result column="bonusRate" property="bonusRate" />
+        <result column="agenShareUrl" property="agenShareUrl" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, productTitle, productIcon, productSlogen, productCategory, productRate, productMaximum, productMinimum, productUrl, hotFlag, applyCount, checkoutMode, bonusMode, bonusType, bonusValue, bonusRate, agenShareUrl
+    </sql>
+
+    <insert id="insert">
+        insert into  products  (product_title, product_icon, product_slogen, product_category, product_rate, product_maximum, product_minimum, product_url, hot_flag, apply_count, checkout_mode, bonus_mode, bonus_type, bonus_value, bonus_rate, agen_share_url)
+        values (
+            #{productTitle},
+            #{productIcon},
+            #{productSlogen},
+            #{productCategory},
+            #{productRate},
+            #{productMaximum},
+            #{productMinimum},
+            #{productUrl},
+            #{hotFlag},
+            #{applyCount},
+            #{checkoutMode},
+            #{bonusMode},
+            #{bonusType},
+            #{bonusValue},
+            #{bonusRate},
+            #{agenShareUrl}
+            )
+    </insert>
+
+</mapper>

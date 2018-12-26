@@ -1,0 +1,36 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="avatar" name="用户头像" underline="true"/>
+                            <#input id="userName" name="昵称" underline="true"/>
+                            <#input id="realName" name="真实姓名" underline="true"/>
+                            <#dictSelector  id="role" name ="role" code="user_type"  label="角色" underline="true" placeholder="-请选择-"  />
+                            <!--<#input id="role" name="角色" underline="true"/>-->
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="password" name="密码" underline="true"/>
+                            <!--<#input id="createTime" name="注册时间" underline="true"/>-->
+                            <#input id="mobile" name="手机号" underline="true"/>
+                            <#input id="IdCard" name="身份证号" underline="true"/>
+                            <#dictSelector  id="status" name ="status" code="account_state"  label="账号状态" underline="true" placeholder="-请选择-"  />
+                            <!--<#input id="status" name="登录状态" underline="true"/>-->
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="InfoInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="InfoInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/Client/info/info_info.js"></script>
+@}
